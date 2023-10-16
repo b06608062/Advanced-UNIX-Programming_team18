@@ -1,0 +1,15 @@
+   1 alligator
+   2 bear
+   1 camel
+   1 Camel
+   1 camel
+   1 dolphin
+   1 Elephant
+   1 bear
+   1 fish
+   1 Fish
+   1 Bird
+   1 lion
+   1 koala
+   1 Koala
+   1 KOALA

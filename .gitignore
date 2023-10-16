@@ -1,0 +1,16 @@
+.DS_Store
+try_append_flag
+*.o
+assignment1/assignment1
+assignment2/assignment2
+assignment3/assignment3
+assignment4/assignment4
+my_uniq/my_uniq
+my_uniq/test.c
+my_uniq/test
+apue/ch1-4
+apue/ch1-5
+apue/ch4-8
+apue/ch5-2
+apue/ch6-4
+.vscode
