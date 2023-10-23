@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 #define OPT_C_FLAG 0x01 // 001 in binary
-#define OPT_U_FLAG 0x02 // 010 in binary
+#define OPT_U_FLAG 0x02 // 010 in ｀binary
 
 typedef struct {
   int i_flag;

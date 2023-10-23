@@ -15,12 +15,4 @@ int main(int argc, char const *argv[]) {
 
   strftime(time_buffer, 128, "%a %b %d %H:%M:%S %Z %Y", time_info);
   printf("%s\n", time_buffer);
-
-  setenv("TZ", "America/New_York", 1);
-  tzset();
-
-  time_info = localtime(&raw_time);
-
-  strftime(time_buffer, 128, "%a %b %d %H:%M:%S %Z %Y", time_info);
-  printf("%s\n", time_buffer);
 }
