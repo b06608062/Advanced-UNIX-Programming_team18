@@ -19,7 +19,11 @@ int main() {
     }
     printf("Child PID: %d PGRP: %d TPGID: %d\n", getpid(), getpgrp(),
            getsid(0));
-    return 1;
+
+    execlp("ps", "ps", "-o", "pid,pgrp,tpgid,comm", (char *)NULL);
+
+    perror("execlp error");
+    exit(1);
   } else {
     wait(NULL);
   }
