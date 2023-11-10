@@ -1,3 +1,4 @@
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -11,19 +12,21 @@ int main() {
     perror("fork error");
     exit(1);
   } else if (pid == 0) {
-    printf("Child PID: %d PGRP: %d TPGID: %d\n", getpid(), getpgrp(),
-           getsid(0));
+    pid_t tpgid = tcgetpgrp(STDIN_FILENO);
+    printf("Before setsid() Child PID: %d PGRP: %d TPGID: %d\n", getpid(),
+           getpgrp(), tpgid);
     if (setsid() == -1) {
       perror("session error");
       exit(1);
     }
-    printf("Child PID: %d PGRP: %d TPGID: %d\n", getpid(), getpgrp(),
-           getsid(0));
+    tpgid = tcgetpgrp(STDIN_FILENO);
+    printf("After setsid() Child PID: %d PGRP: %d TPGID: %d\n", getpid(),
+           getpgrp(), tpgid);
 
-    execlp("ps", "ps", "-o", "pid,pgrp,tpgid,comm", (char *)NULL);
-
-    perror("execlp error");
-    exit(1);
+    char cmd[50] = {0};
+    snprintf(cmd, sizeof(cmd), "ps -o pid,pgid,tpgid,comm -p %d", getpid());
+    system(cmd);
+    return 1;
   } else {
     wait(NULL);
   }
