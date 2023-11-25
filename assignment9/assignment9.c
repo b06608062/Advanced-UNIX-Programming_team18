@@ -28,6 +28,7 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < NUM_THREADS; i++) {
     pthread_join(threads[i], NULL);
   }
+  pthread_barrier_destroy(&barrier);
 
   return 0;
 }
