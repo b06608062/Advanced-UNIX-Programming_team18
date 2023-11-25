@@ -3,10 +3,28 @@
 #include <stdlib.h>
 
 #define NUM_THREADS 5
-static pthread_barrier_t barrier;
+
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+int count = 0;
+int flag = 0;
+
+void pthread_barrier_wait_() {
+  pthread_mutex_lock(&mutex);
+  count++;
+  if (count == NUM_THREADS) {
+    flag = 1;
+    pthread_cond_broadcast(&cond);
+  } else {
+    while (!flag) {
+      pthread_cond_wait(&cond, &mutex);
+    }
+  }
+  pthread_mutex_unlock(&mutex);
+}
 
 void *do_work(void *arg) {
-  pthread_barrier_wait(&barrier);
+  pthread_barrier_wait_();
   pthread_t thread_id = pthread_self();
   printf("Thread %lu running\n", (unsigned long)thread_id);
 
@@ -15,7 +33,6 @@ void *do_work(void *arg) {
 
 int main(int argc, char *argv[]) {
   pthread_t threads[NUM_THREADS];
-  pthread_barrier_init(&barrier, NULL, NUM_THREADS);
 
   for (int i = 0; i < NUM_THREADS; i++) {
     printf("Starting thread %d\n", i);
@@ -28,7 +45,9 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < NUM_THREADS; i++) {
     pthread_join(threads[i], NULL);
   }
-  pthread_barrier_destroy(&barrier);
+
+  pthread_mutex_destroy(&mutex);
+  pthread_cond_destroy(&cond);
 
   return 0;
 }
