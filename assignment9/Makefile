@@ -1,5 +1,5 @@
-CC = gcc -pthread
-CFLAG = -std=c11 -O2 -Wall
+CC = gcc -g -pthread
+CFLAG = -std=c11 -O0 -Wall
 TARGET = assignment9
 SRCS = assignment9.c
 OBJS = assignment9.o
