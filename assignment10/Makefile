@@ -1,8 +1,8 @@
-CC = gcc -pthread
-CFLAG = -std=c11 -O2 -Wall
-TARGET = assignment9
-SRCS = assignment9.c
-OBJS = assignment9.o
+CC = gcc -g -pthread
+CFLAG = -std=c11 -O0 -Wall
+TARGET = assignment10
+SRCS = assignment10.c
+OBJS = assignment10.o
 
 all: $(TARGET)
 
