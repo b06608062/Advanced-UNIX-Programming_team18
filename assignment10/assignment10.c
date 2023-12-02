@@ -14,7 +14,7 @@ extern char **environ;
 
 static void thread_init(void) { pthread_key_create(&key, free); }
 
-char *agetenv(const char *name) {
+char *getenv(const char *name) {
   int i, len;
   char *envbuf;
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  char *val = agetenv(argv[1]);
+  char *val = getenv(argv[1]);
   printf("%s = %s\n", argv[1], val);
 
   return 0;
