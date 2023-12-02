@@ -2,6 +2,7 @@
 .vscode
 *.o
 assignment*/assignment?
+assignment10/assignment10
 try_append_flag
 midterm/output*
 midterm/q?
