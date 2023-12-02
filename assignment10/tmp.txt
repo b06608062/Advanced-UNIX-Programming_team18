@@ -1,0 +1,16 @@
+gcc -g -o assignment10 assignment10.c -lpthread
+
+gdb ./assignment10 LANG
+
+break main
+
+break agetenv
+
+run LANG
+
+print argv
+print i
+print len
+print envbuf
+
+info breakpoints
