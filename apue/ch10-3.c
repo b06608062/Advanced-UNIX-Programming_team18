@@ -19,7 +19,7 @@ unsigned int sleep2(unsigned int seconds) {
 
   if (setjmp(env_alrm) == 0) {
     alarm(seconds); // start the timer
-    // kill(getpid(), SIGINT);
+    kill(getpid(), SIGINT);
     pause(); // next caught signal wakes us up
   }
 
