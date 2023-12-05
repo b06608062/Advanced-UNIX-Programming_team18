@@ -18,7 +18,7 @@ int main() {
   }
 
   if (pid > 0) {
-    printf("The child PID is %d\n\n", pid);
+    printf("The child PID is %d\n", pid);
     snprintf(cmd, sizeof(cmd), "ps -p %d", pid);
     sleep(2);
     system(cmd);
