@@ -1,16 +1,16 @@
 CC = gcc
-CFLAGS = -std=c11 -O2 -Wall
+CFLAG = -std=c11 -O2 -Wall
+TARGET = q1
 SRCS = q1.c
-OBJS = $(SRCS:.c=.o)
-TARGETS = $(SRCS:.c=)
+OBJS = q1.o
 
-all: $(TARGETS)
+all: $(TARGET)
 
-q1: q1.o
-	$(CC) $(CFLAGS) -o $@ $^
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAG) -o $(TARGET) $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(TARGETS) $(OBJS)
+	rm -f $(OBJS) $(TARGET)
