@@ -58,6 +58,7 @@ int main(int argc, char const *argv[]) {
 
 struct ListNode *append_node(struct ListNode *head, int val) {
   struct ListNode *newNode = (struct ListNode *)malloc(sizeof(struct ListNode));
+
   newNode->val = val;
   newNode->next = NULL;
 
