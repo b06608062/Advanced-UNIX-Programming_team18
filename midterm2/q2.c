@@ -6,33 +6,39 @@
 #include <unistd.h>
 
 void process_file(const char *path, const char *file_name);
-void print_links(const char *path);
+void find_dir_files(const char *path);
 
 void process_file(const char *path, const char *file_name) {
-  char complete_path[1024];
-  char target[512];
-  struct stat buffer;
+  char full_path[1024];
+  char actual_path[1024];
 
-  strcpy(complete_path, path);
-  strcat(complete_path, "/");
-  strcat(complete_path, file_name);
+  strcpy(full_path, path);
+  strcat(full_path, "/");
+  strcat(full_path, file_name);
 
-  ssize_t length;
-  if (lstat(complete_path, &buffer) == -1) {
+  struct stat statbuf;
+  if (lstat(full_path, &statbuf) == -1) {
     perror("lstat");
     return;
-  } else {
-    if (S_ISDIR(buffer.st_mode)) {
-      print_links(complete_path);
-    } else if (S_ISLNK(buffer.st_mode)) {
-      length = readlink(complete_path, target, sizeof(target) - 1);
-      target[length] = '\0';
-      printf("\"%s\" -> \"%s\"\n", complete_path, target);
+  }
+
+  ssize_t length;
+  if (S_ISLNK(statbuf.st_mode)) {
+    length = readlink(full_path, actual_path, sizeof(actual_path));
+    if (length > 0) {
+      actual_path[length] = '\0';
+      printf("\"%s\" -> \"%s\"\n", full_path, actual_path);
+    } else {
+      perror("readlink");
     }
+  }
+
+  if (S_ISDIR(statbuf.st_mode)) {
+    find_dir_files(full_path);
   }
 }
 
-void print_links(const char *path) {
+void find_dir_files(const char *path) {
   DIR *folder = opendir(path);
   if (folder == NULL) {
     perror("opendir");
@@ -45,10 +51,16 @@ void print_links(const char *path) {
       process_file(path, file->d_name);
     }
   }
+
   closedir(folder);
 }
 
 int main(int argc, char *argv[]) {
-  print_links(argv[1]);
+  if (argc < 2) {
+    perror("Usage: ./q2 <pathname>");
+    exit(1);
+  }
+
+  find_dir_files(argv[1]);
   exit(0);
 }
