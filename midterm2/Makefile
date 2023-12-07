@@ -6,8 +6,14 @@ TARGETS = $(SRCS:.c=)
 
 all: $(TARGETS)
 
-$(TARGETS): %: %.o
-	$(CC) $(CFLAGS) -o $@ $^
+q1: q1.o
+	$(CC) $(CFLAGS) -o q1 q1.o
+
+q3: q3.o
+	$(CC) $(CFLAGS) -o q3 q3.o
+
+q4: q4.o
+	$(CC) $(CFLAGS) -o q4 q4.o
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
