@@ -27,13 +27,14 @@ void process_file(const char *path, const char *file_name) {
     length = readlink(full_path, actual_path, sizeof(actual_path));
     if (length < 0) {
       perror("readlink");
+      return;
     } else {
       actual_path[length] = '\0';
       printf("\"%s\" -> \"%s\"\n", full_path, actual_path);
 
-      if (stat(full_path, &statbuf) != -1 && S_ISDIR(statbuf.st_mode)) {
-        find_dir_files(actual_path);
-      }
+      // if (stat(full_path, &statbuf) != -1 && S_ISDIR(statbuf.st_mode)) {
+      //   find_dir_files(actual_path);
+      // }
     }
   } else if (S_ISDIR(statbuf.st_mode)) {
     find_dir_files(full_path);
