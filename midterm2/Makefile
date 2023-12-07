@@ -6,7 +6,7 @@ TARGETS = $(SRCS:.c=)
 
 all: $(TARGETS)
 
-$(TARGETS): $(OBJS)
+q1: q1.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c
