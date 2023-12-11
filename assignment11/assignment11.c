@@ -51,8 +51,11 @@ void daemonize(const char *cmd) {
     err_quit("%s: can’t ignore SIGHUP", cmd);
   if ((pid = fork()) < 0)
     err_quit("%s: can’t fork", cmd);
-  else if (pid != 0) /* parent */
+  else if (pid != 0) {
+    /* parent */
     exit(0);
+  }
+
   /*
    * Change the current working directory to the root so
    * we won’t prevent file systems from being unmounted.
@@ -86,10 +89,6 @@ void daemonize(const char *cmd) {
 
 int main(int argc, char **argv) {
   char cwd[1024];
-  char *login;
-  char filepath[1024];
-  FILE *fp;
-
   if (getcwd(cwd, sizeof(cwd)) == NULL) {
     perror("getcwd error");
     exit(1);
@@ -97,11 +96,21 @@ int main(int argc, char **argv) {
 
   daemonize("daemonize");
 
+  char *login;
   login = getlogin();
 
+  pid_t pid = getpid();
+  pid_t ppid = getppid();
+  pid_t sid = getsid(0);
+
+  char filepath[1024];
+  FILE *fp;
   sprintf(filepath, "%s/assignment11.txt", cwd);
   fp = fopen(filepath, "w");
   fprintf(fp, "Login name: %s\n", login);
+  fprintf(fp, "PID: %d\n", pid);
+  fprintf(fp, "PPID: %d\n", ppid);
+  fprintf(fp, "Session ID: %d\n", sid);
   fclose(fp);
 
   exit(0);
