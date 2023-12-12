@@ -99,18 +99,18 @@ int main(int argc, char **argv) {
   char *login;
   login = getlogin();
 
-  pid_t pid = getpid();
-  pid_t ppid = getppid();
-  pid_t sid = getsid(0);
+  // pid_t pid = getpid();
+  // pid_t ppid = getppid();
+  // pid_t sid = getsid(0);
 
   char filepath[1024];
   FILE *fp;
   sprintf(filepath, "%s/assignment11.txt", cwd);
   fp = fopen(filepath, "w");
   fprintf(fp, "Login name: %s\n", login);
-  fprintf(fp, "PID: %d\n", pid);
-  fprintf(fp, "PPID: %d\n", ppid);
-  fprintf(fp, "Session ID: %d\n", sid);
+  // fprintf(fp, "PID: %d\n", pid);
+  // fprintf(fp, "PPID: %d\n", ppid);
+  // fprintf(fp, "Session ID: %d\n", sid);
   fclose(fp);
 
   exit(0);
