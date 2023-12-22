@@ -1,4 +1,4 @@
-CC = gcc -pthread
+CC = gcc
 CFLAG = -std=c11 -O2 -Wall
 TARGET = assignment12
 SRCS = assignment12.c
