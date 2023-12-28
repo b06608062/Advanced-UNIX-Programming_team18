@@ -7,6 +7,7 @@ try_append_flag
 midterm/output*
 midterm/q?
 midterm2/q?
+final/q?
 my_uniq/my_uniq
 apue/ch?-?
 apue/ch10-3
